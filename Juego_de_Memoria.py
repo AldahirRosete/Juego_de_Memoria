@@ -6,6 +6,10 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+click = {'taps': 0}
+contNum = 0
+writer = Turtle(visible=False)
+turned_cards = 0
 
 def square(x, y):
     "Draw white square with black outline at (x, y)."
@@ -38,6 +42,12 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        global turned_cards
+        turned_cards += 1
+
+    print(click)
+    click['taps'] +=1
+    update()
 
 def draw():
     "Draw image and tiles."
@@ -56,6 +66,7 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
+        #Centrar texto
         if tiles[mark] > 9:
             goto(x+3,y+2)
         elif tiles[mark] > 19:
@@ -67,7 +78,14 @@ def draw():
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
+    goto(-40,210) 
+    write (click,font=("Arial",20))
     update()
+    if turned_cards==32: 
+        up()
+        goto(0, 0)
+        color('green')
+        write("GANASTE",  align="center", font=("Arial", 20, "bold")) 
     ontimer(draw, 100)
 
 shuffle(tiles)
