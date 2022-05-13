@@ -66,7 +66,7 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        #Centrar texto
+        #Centrar texto de los cuadros
         if tiles[mark] > 9:
             goto(x+3,y+2)
         elif tiles[mark] > 19:
